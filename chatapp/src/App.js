@@ -14,7 +14,7 @@ function App() {
   
   return (
     <div className="App">
-      <urlContext.Provider value={"http://localhost:8080"}>
+      <urlContext.Provider value={"https://live-chat-app-backend-vjok.onrender.com"}>
         {/* <MainContainer /> */}
         {/* <Login /> */}
         <Routes>
