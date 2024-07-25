@@ -154,7 +154,7 @@ function Sidebar() {
                   </p>
 
                   <p className="con-lastMessage">
-                  {conversation.latestMessage.content}
+                  {(conversation.latestMessage)? conversation.latestMessage.content: "No previous Messages, click here to start a new chat"}
                   </p>
                 </div>
               </div>
