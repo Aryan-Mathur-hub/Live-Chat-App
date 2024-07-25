@@ -22,9 +22,7 @@ function Login() {
   };
 
   const loginHandler = async (e) => {
-    console.log(url)
     setLoading(true);
-    console.log(data);
     try {
       const config = {
         headers: {
@@ -38,7 +36,6 @@ function Login() {
         data,
         config
       );
-      console.log("Login : ", response);
       setLogInStatus({ msg: "Success", key: Math.random() });
       setLoading(false);
       localStorage.setItem("userData", JSON.stringify(response));
@@ -66,7 +63,6 @@ function Login() {
         data,
         config
       );
-      console.log("Register", response);
       setSignInStatus({ msg: "Success", key: Math.random() });
       navigate("/app/welcome");
       localStorage.setItem("userData", JSON.stringify(response));
@@ -112,7 +108,7 @@ function Login() {
               color="secondary"
               name="name"
               onKeyDown={(event) => {
-                if (event.code == "Enter") {
+                if (event.code === "Enter") {
                   // console.log(event);
                   loginHandler();
                 }
@@ -127,7 +123,7 @@ function Login() {
               color="secondary"
               name="password"
               onKeyDown={(event) => {
-                if (event.code == "Enter") {
+                if (event.code === "Enter") {
                   // console.log(event);
                   loginHandler();
                 }
@@ -169,7 +165,7 @@ function Login() {
               name="name"
               helperText=""
               onKeyDown={(event) => {
-                if (event.code == "Enter") {
+                if (event.code === "Enter") {
                   // console.log(event);
                   signUpHandler();
                 }
@@ -183,7 +179,7 @@ function Login() {
               color="secondary"
               name="email"
               onKeyDown={(event) => {
-                if (event.code == "Enter") {
+                if (event.code === "Enter") {
                   // console.log(event);
                   signUpHandler();
                 }
@@ -198,7 +194,7 @@ function Login() {
               color="secondary"
               name="password"
               onKeyDown={(event) => {
-                if (event.code == "Enter") {
+                if (event.code === "Enter") {
                   // console.log(event);
                   signUpHandler();
                 }

@@ -72,7 +72,6 @@ function WorkArea() {
   }, [allMessages, allMessagesCopy]);
 
   useEffect(() => {
-    console.log("Users refreshed");
     const fetchMessages = async () => {
       try {
         const config = {
@@ -174,7 +173,7 @@ function WorkArea() {
               setMessageContent(e.target.value);
             }}
             onKeyDown={(event) => {
-              if (event.code == "Enter") {
+              if (event.code === "Enter") {
                 sendMessage();
                 setMessageContent("");
                 setRefresh(!refresh);
