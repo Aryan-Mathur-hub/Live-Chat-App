@@ -63,11 +63,7 @@ function WorkArea() {
   useEffect(() => {
     socket.on("message received", (newMessage) => {
       dispatch(refreshSidebarFun())
-      if ( !allMessages || allMessagesCopy._id !== newMessage._id ) {
-        setAllMessages([...allMessages, newMessage]);
-      } else {
-        setAllMessages([...allMessages, newMessage]);
-      }
+      setAllMessages([...allMessages, newMessage]);
     });
   }, [allMessages, allMessagesCopy]);
 
