@@ -64,8 +64,6 @@ function WorkArea() {
     socket.on("message received", (newMessage) => {
       dispatch(refreshSidebarFun())
       setAllMessages([...allMessages, newMessage]);
-      // setRefresh(!refresh)
-      console.log("Hello")
     });
   },[allMessages, allMessagesCopy]);
 
