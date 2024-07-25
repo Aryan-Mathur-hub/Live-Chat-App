@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import DoneOutlineRoundedIcon from "@mui/icons-material/DoneOutlineRounded";
 import {
   Button,
@@ -13,8 +13,10 @@ import { useDispatch, useSelector } from "react-redux";
 import { refreshSidebarFun } from "../Features/sidebarSlice";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import { urlContext } from "../App";
 
 function CreateGroups() {
+  const url = useContext(urlContext)
   const lightTheme = useSelector((state) => state.themeKey);
   const userData = JSON.parse(localStorage.getItem("userData"));
   const nav = useNavigate();
@@ -43,8 +45,9 @@ function CreateGroups() {
         Authorization: `Bearer ${user.token}`,
       },
     };
+    const toGourl = url + "/chat/createGroup";
     axios.post(
-      "http://localhost:8080/chat/createGroup",
+      toGourl,
       {
         userId: userData._id,
         name: groupName,

@@ -9,10 +9,10 @@ function MainContainer() {
 
   return (
     <div className="main-container">
-      <myContext.Provider value={{ refresh: refresh, setRefresh: setRefresh }}>
-        <Sidebar />
-        <Outlet />
-      </myContext.Provider>
+        <myContext.Provider value={{ refresh: refresh, setRefresh: setRefresh }}>
+          <Sidebar />
+          <Outlet />
+        </myContext.Provider>
       {/* <Welcome /> */}
       {/* <CreateGroups /> */}
       {/* <ChatArea props={conversations[0]} /> */}

@@ -11,11 +11,14 @@ import Skeleton from "@mui/material/Skeleton";
 import axios from "axios";
 import { myContext } from "./MainContainer";
 import { io } from "socket.io-client"
+import { urlContext } from "../App";
 
 const ENDPOINT = "http://localhost:8080"
 
 var socket
 function WorkArea() {
+  var toGourl;
+  const url = useContext(urlContext)
   const lightTheme = useSelector((state) => state.themeKey);
   const [messageContent, setMessageContent] = useState("");
   const messagesEndRef = useRef(null);
@@ -36,8 +39,9 @@ function WorkArea() {
           Authorization: `Bearer ${userData.data.token}`,
         },
       };
+      toGourl = url + "/message/"
       const { data } = await axios.post(
-        "http://localhost:8080/message/",
+        toGourl,
         {
           content: messageContent,
           chatId: chat_id,
@@ -76,7 +80,8 @@ function WorkArea() {
             Authorization: `Bearer ${userData.data.token}`,
           },
         };
-        const { data } = await axios.get("http://localhost:8080/message/" + chat_id, config);
+        toGourl = url + "/message/"
+        const { data } = await axios.get(toGourl + chat_id, config);
         setAllMessages(data);
         setloaded(true);
         socket.emit("join chat", chat_id);
@@ -140,9 +145,6 @@ function WorkArea() {
             <p className={"con-title" + (lightTheme ? "" : " dark")}>
               {chat_user}
             </p>
-            {/* <p className={"con-timeStamp" + (lightTheme ? "" : " dark")}>
-              {props.timeStamp}
-            </p> */}
           </div>
           <IconButton className={"icon" + (lightTheme ? "" : " dark")}>
             <DeleteIcon />
@@ -156,10 +158,8 @@ function WorkArea() {
               const sender = message.sender;
               const self_id = userData.data._id;
               if (sender._id === self_id) {
-                // console.log("I sent it ");
                 return <MessageSelf props={message} key={index} />;
               } else {
-                // console.log("Someone Sent it");
                 return <MessageOthers props={message} key={index} />;
               }
             })}
@@ -175,7 +175,6 @@ function WorkArea() {
             }}
             onKeyDown={(event) => {
               if (event.code == "Enter") {
-                // console.log(event);
                 sendMessage();
                 setMessageContent("");
                 setRefresh(!refresh);

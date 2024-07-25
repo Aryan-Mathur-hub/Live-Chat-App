@@ -10,16 +10,18 @@ import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { refreshSidebarFun } from "../Features/sidebarSlice";
 import { myContext } from "./MainContainer";
+import { urlContext } from "../App";
 
 function Groups() {
   // const [refresh, setRefresh] = useState(true);
   const { refresh, setRefresh } = useContext(myContext);
-
+  const url = useContext(urlContext)
   const lightTheme = useSelector((state) => state.themeKey);
   const dispatch = useDispatch();
   const [groups, SetGroups] = useState([]);
   const userData = JSON.parse(localStorage.getItem("userData"));
   const nav = useNavigate();
+  var toGourl;
   if (!userData) {
     console.log("User not Authenticated");
     nav("/");
@@ -33,9 +35,9 @@ function Groups() {
         Authorization: `Bearer ${user.token}`,
       },
     };
-
+    toGourl = url + "/chat/fetchGroups"
     axios
-      .get("http://localhost:8080/chat/fetchGroups", config)
+      .get(toGourl, config)
       .then((response) => {
         SetGroups(response.data);
       });
@@ -94,8 +96,9 @@ function Groups() {
                       Authorization: `Bearer ${userData.data.token}`,
                     },
                   };
+                  toGourl = url + "/chat/addSelfToGroup"
                   axios.put(
-                    "http://localhost:8080/chat/addSelfToGroup",
+                    toGourl,
                     {
                       userId: user._id,
                       chatId: group._id

@@ -1,11 +1,13 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import logo from "../Images/live-chat_512px.png";
 import { Backdrop, Button, CircularProgress, TextField } from "@mui/material";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import Toaster from "./Toaster";
+import { urlContext } from "../App";
 
 function Login() {
+  const url = useContext(urlContext)
   const [showlogin, setShowLogin] = useState(true);
   const [data, setData] = useState({ name: "", email: "", password: "" });
   const [loading, setLoading] = useState(false);
@@ -20,6 +22,7 @@ function Login() {
   };
 
   const loginHandler = async (e) => {
+    console.log(url)
     setLoading(true);
     console.log(data);
     try {
@@ -28,9 +31,10 @@ function Login() {
           "Content-type": "application/json",
         },
       };
-
+      const toGoUrl =  url + "/user/login/"
+      
       const response = await axios.post(
-        "http://localhost:8080/user/login/",
+        toGoUrl,
         data,
         config
       );

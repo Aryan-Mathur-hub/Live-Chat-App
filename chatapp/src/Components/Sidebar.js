@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 import { IconButton } from "@mui/material";
 import PersonAddIcon from "@mui/icons-material/PersonAdd";
@@ -13,8 +13,11 @@ import { useDispatch, useSelector } from "react-redux";
 import { toggleTheme } from "../Features/themeSlice";
 import axios from "axios";
 import { AnimatePresence, motion } from "framer-motion";
+import { urlContext } from "../App";
 
 function Sidebar() {
+  var toGourl;
+  const url = useContext(urlContext)
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const lightTheme = useSelector((state) => state.themeKey);
@@ -36,8 +39,8 @@ function Sidebar() {
         Authorization: `Bearer ${user.token}`,
       },
     };
-
-    axios.get("http://localhost:8080/chat/", config).then((response) => {
+    toGourl = url + "/chat/"
+    axios.get(toGourl, config).then((response) => {
       setConversations(response.data);
     });
   }, [refresh]);

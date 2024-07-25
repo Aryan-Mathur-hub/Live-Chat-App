@@ -10,9 +10,12 @@ import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { refreshSidebarFun } from "../Features/sidebarSlice";
 import { myContext } from "./MainContainer";
+import { urlContext } from "../App";
 
 
 function Users() {
+  var toGourl;
+  const url = useContext(urlContext)
   const { refresh, setRefresh } = useContext(myContext);
   const lightTheme = useSelector((state) => state.themeKey);
   const [users, setUsers] = useState([]);
@@ -32,7 +35,8 @@ function Users() {
         Authorization: `Bearer ${userData.data.token}`,
       },
     };
-    axios.get("http://localhost:8080/user/fetchUsers", config).then((data) => {
+    toGourl = url + "/user/fetchUsers"
+    axios.get(toGourl, config).then((data) => {
       setUsers(data.data);
     });
   }, [refresh]);
@@ -92,8 +96,9 @@ function Users() {
                       Authorization: `Bearer ${userData.data.token}`,
                     },
                   };
+                  toGourl = url + "/chat/"
                   axios.post(
-                    "http://localhost:8080/chat/",
+                    toGourl,
                     {
                       userId: user._id,
                       name: user.name
