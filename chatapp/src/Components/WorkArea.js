@@ -13,7 +13,7 @@ import { myContext } from "./MainContainer";
 import { io } from "socket.io-client"
 import { urlContext } from "../App";
 
-const ENDPOINT = "http://localhost:8080"
+const ENDPOINT = "https://live-chat-app-backend-u79g.onrender.com"
 
 var socket
 function WorkArea() {
@@ -64,8 +64,10 @@ function WorkArea() {
     socket.on("message received", (newMessage) => {
       dispatch(refreshSidebarFun())
       setAllMessages([...allMessages, newMessage]);
+      // setRefresh(!refresh)
+      console.log("Hello")
     });
-  }, [allMessages, allMessagesCopy]);
+  },[allMessages, allMessagesCopy]);
 
   useEffect(() => {
     const fetchMessages = async () => {
@@ -80,6 +82,7 @@ function WorkArea() {
         setAllMessages(data);
         setloaded(true);
         socket.emit("join chat", chat_id);
+        // socket.emit("new message", data)
       } catch (error) {
         console.error("Error fetching messages:", error);
       }
@@ -172,7 +175,7 @@ function WorkArea() {
               if (event.code === "Enter") {
                 sendMessage();
                 setMessageContent("");
-                setRefresh(!refresh);
+                setRefresh(!refresh)
               }
             }}
           />
