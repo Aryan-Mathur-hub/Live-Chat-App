@@ -68,8 +68,6 @@ io.on("connection", (socket) =>{
     if (!chat.users) {
       return console.log("chat.users not defined")
     }
-    chat.users.forEach((user) =>{
-      socket.in(user._id).emit("message received", newMessageStatus)
-    })
+    socket.emit("message received", newMessageStatus)
   })
 })
