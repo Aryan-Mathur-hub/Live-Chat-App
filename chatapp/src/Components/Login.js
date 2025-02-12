@@ -58,8 +58,10 @@ function Login() {
         },
       };
 
+      const toGoUrl =  url + "/user/register/"
+      
       const response = await axios.post(
-        "http://localhost:8080/user/register/",
+        toGoUrl,
         data,
         config
       );
